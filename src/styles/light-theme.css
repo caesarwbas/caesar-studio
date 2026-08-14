@@ -1,0 +1,122 @@
+html[data-theme="light"],
+.page[data-theme="light"] {
+  --accent: #ef4329;
+  --accent-soft: #f2aa45;
+  --accent-warm: #df7d10;
+  --accent-deep: #94190d;
+  --bg: #f2eee8;
+  --surface: #fbf8f3;
+  --surface-alt: #f5e5d1;
+  --text: #4a160e;
+  --muted: #76534b;
+  --line: rgba(148, 25, 13, 0.2);
+  --glass: rgba(251, 248, 243, 0.8);
+  --shadow: 0 26px 80px rgba(116, 48, 18, 0.17);
+}
+
+html[data-theme="light"] body { background: var(--bg); }
+
+html[data-theme="light"] .site-background {
+  background: #f2eee8;
+}
+
+html[data-theme="light"] .pattern-bg {
+  background:
+    radial-gradient(circle at 16% 12%, rgba(242,170,69,.38), transparent 27%),
+    radial-gradient(circle at 84% 78%, rgba(239,67,41,.12), transparent 28%),
+    repeating-linear-gradient(135deg,#f7f3ee 0 60px,#f1e9df 70px,#ead8c3 130px);
+}
+
+html[data-theme="light"] .cube-svg path {
+  stroke: rgba(148,25,13,.12);
+}
+
+html[data-theme="light"] .cube-svg .cube-light {
+  stroke: rgba(223,125,16,.2);
+}
+
+html[data-theme="light"] .pattern-shade {
+  background: linear-gradient(180deg,rgba(255,255,255,.18),rgba(242,170,69,.08));
+}
+
+html[data-theme="light"] .header .nav {
+  background: rgba(247,243,238,.86);
+  border-color: rgba(148,25,13,.18);
+  box-shadow: inset 0 1px rgba(255,255,255,.8),0 18px 45px rgba(116,48,18,.15);
+}
+
+html[data-theme="light"] .header .brand img,
+html[data-theme="light"] footer img {
+  filter: brightness(0) saturate(100%) invert(16%) sepia(72%) saturate(2550%) hue-rotate(353deg) brightness(82%);
+}
+
+html[data-theme="light"] .nav-links a { color: #76534b; }
+html[data-theme="light"] .nav-links a:hover { color: #94190d; }
+html[data-theme="light"] .nav-links a.active { color: #ef4329; }
+
+html[data-theme="light"] .icon-button {
+  color: #fff8f2;
+  background: #94190d;
+  border-color: rgba(255,255,255,.48);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.42),inset 0 -12px 18px rgba(223,125,16,.18),0 7px 16px rgba(116,48,18,.24);
+}
+
+html[data-theme="light"] .icon-button:hover {
+  background: #ef4329;
+  border-color: #f2aa45;
+  box-shadow: inset 0 1px rgba(255,255,255,.55),0 0 16px rgba(239,67,41,.42);
+}
+
+html[data-theme="light"] #home .ambient {
+  background: radial-gradient(circle at 50% 48%,transparent 0 25%,rgba(242,170,69,.05) 50%,rgba(148,25,13,.12) 100%);
+}
+
+html[data-theme="light"] #home h1 { color: #94190d; }
+html[data-theme="light"] #home p { color: #654038; }
+html[data-theme="light"] #home .proof { color: #76534b; }
+html[data-theme="light"] #home .proof strong { color: #94190d; }
+html[data-theme="light"] #home .proof > i { background: rgba(148,25,13,.25); }
+
+html[data-theme="light"] .fx-button,
+html[data-theme="light"] .button.fx-button,
+html[data-theme="light"] .button.fx-button.primary {
+  --button-color: #df7d10;
+  color: #fff!important;
+  background-color: #df7d10!important;
+  background-image: linear-gradient(180deg,rgba(255,255,255,.14),rgba(148,25,13,.16))!important;
+  border-color: rgba(148,25,13,.26)!important;
+  box-shadow: inset 0 1px rgba(255,255,255,.5),inset 0 -14px 20px rgba(148,25,13,.15),0 12px 25px rgba(116,48,18,.22)!important;
+}
+
+html[data-theme="light"] .button.fx-button.primary { background-color: #ef4329!important; }
+html[data-theme="light"] .fx-button .arrow { background: #94190d; }
+html[data-theme="light"] .section-title { color: #94190d; }
+html[data-theme="light"] .section-text { color: #76534b; }
+
+html[data-theme="light"] #services .card-top i,
+html[data-theme="light"] #services .card-arrow {
+  background: #94190d;
+}
+
+html[data-theme="light"] #services .carousel-core {
+  background: radial-gradient(circle at 40% 30%,#f2aa45,#94190d 72%);
+  border-color: rgba(239,67,41,.5);
+}
+
+html[data-theme="light"] #popular-searches::before {
+  background: linear-gradient(180deg,rgba(251,248,243,.28),rgba(242,170,69,.12));
+}
+
+html[data-theme="light"] #contact.contact {
+  background: rgba(251,248,243,.56)!important;
+}
+
+html[data-theme="light"] footer {
+  background: rgba(251,248,243,.78)!important;
+}
+
+html[data-theme="light"] ::selection { background: #ef4329; color: #fff; }
+
+@media (prefers-contrast: more) {
+  html[data-theme="light"],.page[data-theme="light"] { --muted: #5b332c; --line: rgba(74,22,14,.35); }
+}

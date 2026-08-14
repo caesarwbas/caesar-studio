@@ -1,0 +1,32 @@
+---
+import { discoveryImages } from "@/data/discovery-images";
+import "@/styles/discovery.css";
+const { lang = "ar" } = Astro.props;
+const ar = lang === "ar";
+const text = ar ? {
+  eyebrow: "أعمال CAESAR STUDIO", title: "حرّك المؤشر واكتشف ما نصنعه",
+  copy: "كل مساحة تخفي قصة مختلفة صممناها لتصنع حضورًا يصعب تجاهله.",
+  primary: "ابدأ مشروعك", secondary: "شاهد جميع الأعمال",
+} : {
+  eyebrow: "CAESAR STUDIO WORK", title: "Move your cursor and discover our work",
+  copy: "Every space hides a different story designed to create an unforgettable presence.",
+  primary: "Start your project", secondary: "Explore all work",
+};
+---
+<section class="discovery" id="growth" data-section="growth" data-discovery aria-labelledby="discovery-title">
+  <div class="discovery-wall" data-discovery-wall aria-hidden="true">
+    {discoveryImages.map((src) => <figure class="discovery-tile"><img src={src} alt="" width="640" height="640" loading="lazy" decoding="async" /></figure>)}
+  </div>
+  <div class="discovery-content">
+    <span class="discovery-eyebrow">{text.eyebrow}</span>
+    <h2 id="discovery-title" class="display">{text.title}</h2>
+    <p class="discovery-copy">{text.copy}</p>
+    <div class="discovery-actions">
+      <a class="button primary interactive" href="#contact"><span>{text.primary}</span><span class="arrow" aria-hidden="true">↗</span></a>
+      <a class="button interactive" href={ar ? "/work/" : "/en/work/"}><span>{text.secondary}</span><span class="arrow" aria-hidden="true">←</span></a>
+    </div>
+  </div>
+  <div class="discovery-cursor" data-discovery-cursor aria-hidden="true">+</div>
+  <div class="discovery-index" aria-hidden="true"><span>MOVE TO DISCOVER</span><strong>05</strong></div>
+</section>
+<script>import "@/scripts/discovery-reveal";</script>

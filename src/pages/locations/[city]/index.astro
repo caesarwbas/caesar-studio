@@ -1,0 +1,10 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"; import Breadcrumbs from "@/components/Breadcrumbs.astro"; import SeoLinkGrid from "@/components/SeoLinkGrid.astro";
+import {locations} from "@/data/locations"; import {services} from "@/data/services"; import {breadcrumbSchema,itemListSchema,webPageSchema} from "@/lib/seo-schema";
+export function getStaticPaths(){return locations.map((location)=>({params:{city:location.slug},props:{location}}))}
+const {location}=Astro.props; const path=`/locations/${location.slug}/`; const title=`خدمات التسويق والتصميم في ${location.ar} | CAESAR STUDIO`; const description=`${location.arMarket} استكشف خدمات المواقع والمنتجات والهوية والتسويق والنمو.`;
+const items=services.map((service)=>({name:`${service.ar} في ${location.ar}`,href:`/locations/${location.slug}/${service.slug}/`,note:service.arSummary})); const crumbs=[{name:"الرئيسية",href:"/"},{name:"الأسواق",href:"/locations/"},{name:location.ar,href:path}];
+const schema=[webPageSchema(path,title,description,"ar"),breadcrumbSchema(crumbs),itemListSchema(items,`الخدمات في ${location.ar}`)];
+---
+<BaseLayout title={title} description={description} lang="ar" path={path} alternatePath={`/en/locations/${location.slug}/`} schema={schema}><Breadcrumbs items={crumbs}/><section class="city container"><div class="eyebrow">MARKET / {location.countryCode}</div><h1 class="display">نصنع حضورك<br/>في <span>{location.ar}</span></h1><p>{location.arMarket}</p></section><SeoLinkGrid title={`الخدمات في ${location.ar}`} items={items}/></BaseLayout>
+<style>.city{min-height:66vh;padding-top:120px;display:flex;flex-direction:column;justify-content:center}.city h1{margin:18px 0;font-size:clamp(58px,9vw,136px);line-height:.9}.city h1 span{color:var(--accent)}.city p{max-width:760px;color:var(--muted);font-size:19px;line-height:1.9}</style>

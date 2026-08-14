@@ -1,0 +1,68 @@
+---
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import JsonLd from "@/components/JsonLd.astro";
+import "@/styles/tokens.css";
+import "@/styles/buttons.css";
+import "@/styles/motion.css";
+import "../styles/site-background.css";
+import "../styles/light-theme.css";
+import "../styles/english-home.css";
+
+type Props = { title: string; description: string; lang?: "ar" | "en"; path?: string; alternatePath?: string; schema?: object | object[]; image?: string; dateModified?: string };
+const { title, description, lang = "ar", path = "/", alternatePath: suppliedAlternate, schema = [], image = "/assets/brand/caesar-horse.webp", dateModified } = Astro.props;
+const prefix = lang === "en" ? "/en" : "";
+const canonical = new URL(path, Astro.site);
+const alternatePath = suppliedAlternate || (lang === "ar" ? `/en${path === "/" ? "/" : path}` : path.replace(/^\/en/, "") || "/");
+const arPath = lang === "ar" ? path : alternatePath;
+const enPath = lang === "en" ? path : alternatePath;
+const socialImage = new URL(image, Astro.site);
+const graph = [
+  { "@type":"Organization", "@id":"https://caesarstudio.com/#organization", name:"CAESAR STUDIO", url:"https://caesarstudio.com/", logo:{"@type":"ImageObject",url:"https://caesarstudio.com/assets/brand/caesar-mark.png"}, image:"https://caesarstudio.com/assets/brand/caesar-horse.webp", description:"استوديو للتسويق والهوية وتصميم المواقع والمنتجات الرقمية والنمو العضوي.", email:"hello@caesarstudio.com", sameAs:["https://www.facebook.com/caesar.studio5","https://www.instagram.com/caesarstudio5/"], knowsAbout:["Website design","Web applications","SaaS development","Paid media","Social media management","Visual identity","Logo design","Video production","Search engine optimization"], contactPoint:{"@type":"ContactPoint",contactType:"sales",email:"hello@caesarstudio.com",availableLanguage:["Arabic","English"]} },
+  { "@type":"WebSite", "@id":"https://caesarstudio.com/#website", url:"https://caesarstudio.com/", name:"CAESAR STUDIO", inLanguage:["ar","en"], publisher:{"@id":"https://caesarstudio.com/#organization"} },
+  ...(Array.isArray(schema) ? schema : [schema]).filter(Boolean),
+];
+---
+<!doctype html>
+<html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"} data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#080808" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    {dateModified && <meta property="article:modified_time" content={dateModified} />}
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ar" href={new URL(arPath, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(arPath, Astro.site)} />
+    <link rel="preload" href="/fonts/MadaniArabicDEMO-Bold.otf" as="font" type="font/otf" crossorigin="anonymous" />
+    <link rel="preload" href="/assets/brand/caesar-wordmark.png" as="image" type="image/png" />
+    <link rel="icon" href="/assets/brand/caesar-mark.png" type="image/png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" /><meta property="og:site_name" content="CAESAR STUDIO" /><meta property="og:locale" content={lang === "ar" ? "ar_AR" : "en_US"} /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:image" content={socialImage} /><meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={socialImage} />
+    <title>{title}</title>
+    <JsonLd data={{ "@context":"https://schema.org", "@graph": graph }} />
+    <script is:inline type="speculationrules" set:html={JSON.stringify({prefetch:[{where:{and:[{href_matches:"/*"},{not:{selector_matches:"a[rel~=nofollow]"}}]},eagerness:"conservative"}],prerender:[{where:{or:[{href_matches:"/services/*"},{href_matches:"/work/*"},{href_matches:"/prices/*"}]},eagerness:"moderate"}]})}></script>
+  </head>
+  <body>
+    <div class="page" id="page" data-theme="dark">
+      <div class="site-background" aria-hidden="true">
+        <div class="pattern-bg"></div>
+        <svg class="cube-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+          <defs><pattern id="cube-pattern" width="160" height="138" patternUnits="userSpaceOnUse"><path d="M80 3 150 43 80 83 10 43Z M10 43v80l70 40V83 M150 43v80l-70 40"/><path class="cube-light" d="M80 3v80l70 40 M80 83 10 123"/></pattern></defs>
+          <rect width="100%" height="100%" fill="url(#cube-pattern)"/>
+        </svg>
+        <div class="pattern-shade"></div>
+      </div>
+      <div class="scroll-progress" id="scroll-progress"></div><canvas class="fireworks" id="fireworks" aria-hidden="true"></canvas>
+      <Header lang={lang} prefix={prefix} />
+      <main><slot /></main>
+      <Footer lang={lang} prefix={prefix} />
+    </div>
+    <script>
+      import "@/scripts/app.ts";
+    </script>
+  </body>
+</html>

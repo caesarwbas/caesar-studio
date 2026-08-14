@@ -1,0 +1,6 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"; import DirectoryLanding from "@/components/DirectoryLanding.astro"; import {locations} from "@/data/locations"; import {itemListSchema,webPageSchema} from "@/lib/seo-schema";
+const path="/locations/"; const title="خدمات CAESAR STUDIO حسب السوق"; const description="خدمات تسويق وتصميم ومنتجات رقمية مكيّفة لأسواق إسطنبول والرياض ودبي وبرلين.";
+const items=locations.map((location)=>({name:location.ar,href:`/locations/${location.slug}/`,note:location.arMarket})); const schema=[webPageSchema(path,title,description,"ar"),itemListSchema(items,"الأسواق")];
+---
+<BaseLayout title={title} description={description} lang="ar" path={path} alternatePath="/en/locations/" schema={schema}><DirectoryLanding lang="ar" type="locations" items={items}/></BaseLayout>

@@ -1,0 +1,13 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LocalServiceLanding from "@/components/LocalServiceLanding.astro";
+import { services } from "@/data/services"; import { locations } from "@/data/locations"; import { getSeoCopy } from "@/data/seo-content";
+import { breadcrumbSchema, faqSchema, serviceSchema, webPageSchema } from "@/lib/seo-schema";
+export function getStaticPaths(){return locations.flatMap((location)=>services.map((service)=>({params:{city:location.slug,service:service.slug},props:{location,service}})))}
+const {location,service}=Astro.props; const copy=getSeoCopy(service.slug); const path=`/en/locations/${location.slug}/${service.slug}/`;
+const title=`${service.en} in ${location.en} | CAESAR STUDIO`; const description=`${copy.enIntro} ${location.enMarket}`;
+const crumbs=[{name:"Home",href:"/en/"},{name:location.en,href:`/en/locations/${location.slug}/`},{name:service.en,href:path}];
+const faq=[{q:`Do you provide ${service.en} in ${location.en}?`,a:`Yes. Delivery is managed digitally and adapted to the ${location.en} market.`},{q:`What changes for ${location.en}?`,a:location.enMarket},{q:"Is pricing fixed?",a:`It varies by ${copy.enFactors.join(", ")}.`}];
+const schema=[webPageSchema(path,title,description,"en"),serviceSchema(service,copy,path,"en",location),breadcrumbSchema(crumbs),faqSchema(faq)];
+---
+<BaseLayout title={title} description={description} lang="en" path={path} alternatePath={`/locations/${location.slug}/${service.slug}/`} schema={schema} dateModified="2026-08-13"><LocalServiceLanding service={service} location={location} lang="en"/></BaseLayout>

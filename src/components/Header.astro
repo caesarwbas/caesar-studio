@@ -1,0 +1,47 @@
+---
+import { copy } from "@/data/copy";
+const { lang = "ar", prefix = "" } = Astro.props;
+const c = copy[lang as "ar" | "en"];
+const other = lang === "ar" ? "/en/" : "/";
+---
+<header class="header" id="site-header">
+  <nav class="nav fx-frame" aria-label={lang === "ar" ? "التنقل الرئيسي" : "Primary navigation"}>
+    <a class="brand" id="brand-home" href={`${prefix}/`} aria-label="CAESAR STUDIO">
+      <img src="/assets/brand/caesar-wordmark.png" width="4000" height="4000" alt="CAESAR STUDIO" />
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a id="nav-home" href={`${prefix}/`} data-nav="home">{c.home}</a>
+      <a id="nav-services" href={`${prefix}/#services`} data-nav="services">{c.services}</a>
+      <a id="nav-work" href={`${prefix}/work/`} data-nav="work">{c.work}</a>
+      <a id="nav-insights" href={`${prefix}/insights/`} data-nav="insights">{c.insights}</a>
+      <a id="nav-contact" href={`${prefix}/#contact`} data-nav="contact">{c.contact}</a>
+    </div>
+    <div class="nav-tools">
+      <a class="icon-button interactive mono" id="language-switch" href={other} aria-label="Switch language">{lang === "ar" ? "EN" : "AR"}</a>
+      <button class="icon-button interactive" id="theme-button" type="button" aria-label={lang === "ar" ? "تغيير الثيم" : "Switch theme"} aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.35-.02-.7-.06-1.03A7 7 0 0 1 13.03 3.06C12.7 3.02 12.35 3 12 3Z"/></svg>
+      </button>
+      <button class="icon-button interactive menu-button" id="menu-button" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M5 16h14"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <a id="mobile-home" href={`${prefix}/`}>{c.home}</a>
+  <a id="mobile-services" href={`${prefix}/#services`}>{c.services}</a>
+  <a id="mobile-work" href={`${prefix}/work/`}>{c.work}</a>
+  <a id="mobile-insights" href={`${prefix}/insights/`}>{c.insights}</a>
+  <a id="mobile-contact" href={`${prefix}/#contact`} data-fireworks>{c.contact}</a>
+</div>
+
+<style>
+  .header{position:fixed;z-index:100;top:18px;left:50%;width:min(1180px,calc(100% - 28px));transform:translateX(-50%);transition:transform .35s var(--ease),opacity .35s}
+  .header.hidden{transform:translate(-50%,-130%);opacity:.25}
+  .nav{height:68px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px;padding:8px 10px 8px 18px;border:1px solid var(--line);border-radius:999px;background:var(--glass);backdrop-filter:blur(24px) saturate(1.35);box-shadow:inset 0 1px rgba(255,255,255,.16),var(--shadow)}
+  .brand{width:148px;height:42px;overflow:hidden;display:grid;place-items:center;padding:0 8px}.brand img{width:148px;height:42px;object-fit:contain;transform:scale(2.65);filter:invert(1) brightness(2)}[data-theme="light"] .brand img{filter:none}
+  .nav-links{display:flex;justify-content:center;align-items:center;gap:3px;position:relative}.nav-links a{position:relative;padding:13px 14px;text-decoration:none;font-size:15px;font-weight:600;color:var(--muted);transition:color .2s}.nav-links a:hover{color:var(--text)}.nav-links a.active{color:var(--accent);text-shadow:none}
+  .nav-tools{display:flex;align-items:center;gap:7px}.menu-button{display:none}.mobile-menu{display:none}
+  @media(max-width:1024px){.nav-links{display:none}.nav{grid-template-columns:auto 1fr auto}.menu-button{display:grid}.mobile-menu{position:fixed;z-index:95;inset:0;background:rgba(8,8,8,.96);backdrop-filter:blur(24px);padding:110px 28px 35px;display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden;transition:.35s}.mobile-menu.open{opacity:1;visibility:visible}.mobile-menu a{font:700 clamp(32px,9vw,62px) "Alexandria";text-decoration:none;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.12);color:#f5f1e9}}
+  @media(max-width:720px){.header{top:10px}.nav{height:58px;padding:6px 7px 6px 13px}.brand img{width:108px}.icon-button{width:44px;height:44px}}
+</style>

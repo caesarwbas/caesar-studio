@@ -1,0 +1,6 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"; import DirectoryLanding from "@/components/DirectoryLanding.astro"; import {locations} from "@/data/locations"; import {itemListSchema,webPageSchema} from "@/lib/seo-schema";
+const path="/en/locations/"; const title="CAESAR STUDIO services by market"; const description="Digital marketing, design, and product services adapted for Istanbul, Riyadh, Dubai, and Berlin.";
+const items=locations.map((location)=>({name:location.en,href:`/en/locations/${location.slug}/`,note:location.enMarket})); const schema=[webPageSchema(path,title,description,"en"),itemListSchema(items,"Markets")];
+---
+<BaseLayout title={title} description={description} lang="en" path={path} alternatePath="/locations/" schema={schema}><DirectoryLanding lang="en" type="locations" items={items}/></BaseLayout>

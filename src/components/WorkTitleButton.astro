@@ -1,0 +1,27 @@
+---
+interface Props { lang?: "ar" | "en" }
+const { lang = "ar" } = Astro.props;
+const title = lang === "ar" ? "أعمال لا تشبه بعضها." : "No two projects look alike.";
+const chars = Array.from(title);
+---
+
+<div class="work-title-wrap">
+  <div class="work-title-button" role="heading" aria-level="1">
+    <div class="work-title-glow"></div>
+    <div class="work-title-bg"><div class="work-title-shine"></div></div>
+    <div class="work-title-wave"></div>
+    <div class="work-title-content">
+      <div class="work-title-outline"></div>
+      <span class="work-title-text" dir={lang === "ar" ? "rtl" : "ltr"}>
+        {chars.map((char, index) =>
+          char === " " ? (
+            <span class="work-title-space" aria-hidden="true">&nbsp;</span>
+          ) : (
+            <span class="work-title-char" style={`--i:${index}`}>{char}</span>
+          )
+        )}
+      </span>
+      <i>⚡</i>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "Madani Arabic";
+  src: url("/fonts/MadaniArabicDEMO-Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --accent: #d6522b;
+  --accent-soft: #ff9b72;
+  --bg: #12090e;
+  --surface: #1a0f14;
+  --surface-alt: #24141a;
+  --text: #f5f1e9;
+  --muted: #a7a19a;
+  --line: rgba(255, 255, 255, 0.14);
+  --glass: rgba(24, 10, 16, 0.72);
+  --shadow: 0 30px 100px rgba(0, 0, 0, 0.42);
+  --container: 1280px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --bg: #f4eee5;
+  --surface: #fffaf4;
+  --surface-alt: #eadfce;
+  --text: #17130f;
+  --muted: #655e55;
+  --line: rgba(23, 19, 15, 0.15);
+  --glass: rgba(255, 255, 255, 0.48);
+  --shadow: 0 30px 100px rgba(67, 39, 18, 0.17);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: "Madani Arabic", sans-serif; overflow-x: hidden; }
+body, body * { font-family: "Madani Arabic", sans-serif !important; }
+body.menu-open { overflow: hidden; }
+a, button { color: inherit; font: inherit; }
+button { cursor: pointer; }
+img { display: block; max-width: 100%; }
+::selection { background: var(--accent); color: white; }
+:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 4px; }
+.display, .mono { font-family: "Madani Arabic", sans-serif; }
+.page { min-height: 100vh; background: var(--bg); transition: background 0.55s var(--ease), color 0.55s var(--ease); }
+.container { width: min(var(--container), calc(100% - 48px)); margin-inline: auto; }
+.eyebrow { color: var(--accent); font: 700 9px "Madani Arabic", sans-serif; letter-spacing: 0.2em; text-transform: uppercase; }
+.section-title { margin: 12px 0 0; font-size: clamp(42px, 5.2vw, 82px); line-height: 0.98; letter-spacing: -0.05em; }
+.section-text { max-width: 520px; margin: 0; color: var(--muted); line-height: 1.85; }
+.reveal { opacity: 0; transform: translateY(38px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+.reveal.visible { opacity: 1; transform: none; }
+
+@media (max-width: 720px) {
+  .container { width: min(var(--container), calc(100% - 36px)); }
+  .section-title { font-size: clamp(40px, 11vw, 62px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}

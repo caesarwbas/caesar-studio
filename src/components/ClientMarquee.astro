@@ -1,0 +1,37 @@
+---
+import { clients } from "@/data/clients";
+import SocialIcons from "@/components/SocialIcons.astro";
+const { lang = "ar" } = Astro.props;
+const ar = lang === "ar";
+const repeatedClients = [...clients, ...clients];
+---
+<section class="profile" id="clients" data-spotlight-hero aria-labelledby="profile-title">
+  <div class="backdrop base-layer" aria-hidden="true"></div>
+  <div class="backdrop reveal-layer" id="spotlight-reveal" aria-hidden="true"></div>
+  <svg class="profile-grid" aria-hidden="true"><defs><pattern id="profile-grid-pattern" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M 48 0 L 0 0 0 48" fill="none" stroke="#64748b" stroke-width=".6"/></pattern></defs><rect width="100%" height="100%" fill="url(#profile-grid-pattern)"/></svg>
+  <div class="shade" aria-hidden="true"></div>
+  <div class="profile-content container reveal">
+    <div class="eyebrow">STRATEGY · DESIGN · TECHNOLOGY · GROWTH</div>
+    <h2 class="display fx-frame title-frame" id="profile-title">CAESAR <em>STUDIO</em></h2>
+    <h3>{ar ? "شركة تسويق وتجارب ومنتجات رقمية" : "Digital Marketing, Experience & Product Studio"}</h3>
+    <p>{ar ? "نحوّل الأفكار الطموحة إلى علامات لا تُنسى ومنصات رقمية عالية الأداء، عبر منظومة تجمع الاستراتيجية والهوية والتصميم والتقنية والتسويق والنمو القابل للقياس." : "We turn ambitious ideas into memorable brands and high-performance digital products through one system connecting strategy, identity, design, technology, marketing, and measurable growth."}</p>
+    <div class="contact-actions">
+      <a class="contact-button interactive" href="mailto:hello@caesarstudio.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 7 9-7"/></svg><span>{ar ? "راسلنا بالبريد" : "Email us"}</span></a>
+      <a class="contact-button interactive" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.6a8 8 0 0 1-11.8 7L4 20l1.4-4.1A8 8 0 1 1 20 11.6Z"/><path d="M9 8.5c.2 3 2.5 5.3 5.5 5.5"/></svg><span>{ar ? "تواصل عبر واتساب" : "WhatsApp"}</span></a>
+    </div>
+    <SocialIcons />
+  </div>
+  <div class="client-strip">
+    <div class="trusted-heading">{ar ? "شركاء وثقوا بنا" : "TRUSTED BY LEADING BRANDS"}</div>
+    <div class="marquee">
+      <div class="track">
+        {repeatedClients.map(([name, src], index) => <div class="logo" aria-hidden={index >= clients.length ? "true" : undefined}><img src={src} loading="lazy" decoding="async" alt={index < clients.length ? name : ""} /></div>)}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .profile{min-height:100svh;position:relative;overflow:hidden;display:grid;place-items:center;padding:100px 24px 180px;color:#fff;background:#100d0b}.backdrop,.shade,.profile-grid{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.backdrop{background-size:cover;background-position:center}.base-layer{z-index:0;background-image:url("https://res.cloudinary.com/lclxcm8g/image/upload/v1786573864/FRONT_zcbvfm.png")}.reveal-layer{z-index:1;opacity:0;background-image:url("https://res.cloudinary.com/lclxcm8g/image/upload/v1786573864/BACK_z6nlyw.png");-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;transition:opacity .18s ease}.reveal-layer.active{opacity:1}.profile-grid{z-index:2;opacity:.1}.shade{z-index:3;background:linear-gradient(180deg,rgba(6,5,4,.22),rgba(6,5,4,.48) 52%,rgba(6,5,4,.84)),linear-gradient(90deg,rgba(5,4,3,.12),rgba(5,4,3,.42))}.profile-content{position:relative;z-index:10;text-align:center;display:grid;justify-items:center}.eyebrow{color:#ff8a5f}.profile h2{margin:18px 0 14px;padding:.12em .25em .18em;border:1px solid rgba(255,255,255,.16);border-radius:.18em;font-size:clamp(60px,9.4vw,154px);line-height:.82;letter-spacing:-.07em}.profile h2 em{color:#d6522b;font-style:normal}.profile h3{margin:0 0 26px;font-size:clamp(18px,2vw,31px)}.profile p{max-width:850px;margin:0;color:rgba(255,255,255,.82);font-size:clamp(15px,1.25vw,20px);line-height:1.9}.contact-actions{width:min(760px,100%);display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:34px 0 24px}.contact-button{min-height:68px;padding:14px 25px;border:1px solid rgba(255,255,255,.3);border-radius:18px;display:flex;align-items:center;justify-content:center;gap:12px;color:#fff;text-decoration:none;background:rgba(255,255,255,.12);box-shadow:inset 0 1px rgba(255,255,255,.25);backdrop-filter:blur(20px);transition:transform .3s,background .3s,border-color .3s}.contact-button:first-child{background:#d6522b;border-color:#f58662}.contact-button:hover{transform:translateY(-4px);background:#e9663e;border-color:#ffae91}.contact-button svg{box-sizing:border-box;width:42px;height:42px;flex:none;padding:10px;border:1px solid #fff2;border-radius:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;background:#101010;box-shadow:inset 0 1px 1px #fff3,inset 0 4px 5px #fff1,inset 0 10px 13px #fff1,0 7px 14px #0007;filter:drop-shadow(0 0 2px #fff8);transition:transform .3s,border-color .3s,box-shadow .3s}.contact-button:hover svg{transform:rotate(-7deg) scale(1.08);border-color:rgba(255,164,106,.78);box-shadow:inset 0 1px 1px #fff5,inset 0 -15px 18px rgba(255,105,25,.28),0 0 14px rgba(255,105,25,.65)}.client-strip{position:absolute;z-index:11;inset:auto 0 0;padding:20px 0;border-top:1px solid rgba(255,255,255,.17);background:rgba(5,4,3,.34);backdrop-filter:blur(13px)}.trusted-heading{position:absolute;z-index:2;left:50%;top:0;transform:translate(-50%,-50%);width:max-content;max-width:calc(100% - 36px);padding:7px 24px;color:rgba(255,255,255,.94);background:rgba(13,10,8,.78);border:1px solid rgba(255,255,255,.14);border-radius:999px;backdrop-filter:blur(14px);font-family:"Alexandria",sans-serif;font-size:clamp(17px,1.55vw,24px);font-weight:500;line-height:1.4;letter-spacing:.035em;text-shadow:0 2px 16px rgba(0,0,0,.5)}.marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}.track{display:flex;width:max-content;align-items:center;gap:clamp(45px,6vw,100px);animation:profile-flow 36s linear infinite;will-change:transform}.marquee:hover .track{animation-play-state:paused}.logo{width:clamp(115px,11vw,185px);height:72px;flex:none;display:grid;place-items:center}.logo img{max-width:100%;max-height:58px;object-fit:contain;filter:grayscale(1) brightness(0) invert(1);opacity:.72;transition:filter .35s,opacity .35s,transform .35s}.logo:hover img{filter:grayscale(0);opacity:1;transform:scale(1.08)}@keyframes profile-flow{to{transform:translateX(calc(-50% - clamp(22.5px,3vw,50px)))}}
+  @media(max-width:720px){.profile{min-height:110svh;padding:110px 18px 155px;align-items:start}.backdrop{object-position:58% center}.shade{background:linear-gradient(180deg,rgba(6,5,4,.42),rgba(6,5,4,.74) 55%,rgba(6,5,4,.92))}.profile h2{font-size:clamp(54px,18vw,86px);margin-top:28px}.profile h3{font-size:17px}.profile p{font-size:14px;line-height:1.8}.contact-actions{grid-template-columns:1fr;margin-top:28px}.contact-button{min-height:58px}.track{gap:44px;animation-duration:28s}.logo{width:120px;height:60px}.logo img{max-height:48px}}
+  @media(prefers-reduced-motion:reduce){.track{animation-play-state:paused}.profile-grid{display:none}}
+</style>

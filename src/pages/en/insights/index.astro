@@ -1,0 +1,8 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+const articles=["How to choose a web design company","Website or web application?","Original local service pages without duplication","What actually affects Core Web Vitals?"];
+---
+<BaseLayout title="Digital Insights | CAESAR STUDIO" description="Practical guides about websites, identity, digital products, and SEO." lang="en" path="/en/insights/">
+  <section class="insights container" data-section="insights"><div class="eyebrow">INSIGHTS / PEOPLE-FIRST CONTENT</div><h1 class="display">Knowledge for<br/>better decisions.</h1><div>{articles.map((title,i)=><article class="reveal"><small class="mono">0{i+1}</small><h2 class="display">{title}</h2><p>Original editorial guidance grounded in project experience and real client questions.</p></article>)}</div></section>
+</BaseLayout>
+<style>.insights{padding:150px 0}.insights>h1{margin:18px 0 60px;font-size:clamp(60px,9vw,135px);line-height:.9}.insights>div:last-child{border-top:1px solid var(--line)}article{display:grid;grid-template-columns:55px 1fr minmax(240px,.5fr);align-items:center;gap:25px;min-height:150px;border-bottom:1px solid var(--line)}small{color:var(--accent)}h2{font-size:clamp(25px,3vw,42px)}p{color:var(--muted);line-height:1.7}@media(max-width:720px){article{grid-template-columns:35px 1fr}article p{display:none}}</style>

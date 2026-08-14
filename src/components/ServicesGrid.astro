@@ -1,0 +1,50 @@
+---
+import { services } from "@/data/services";
+import { copy } from "@/data/copy";
+
+const { lang = "ar", prefix = "" } = Astro.props;
+const c = copy[lang as "ar" | "en"];
+const colors = ["255,122,26", "0,229,255", "139,92,255", "255,22,141", "255,176,0"];
+---
+
+<section class="services" id="services" data-section="services">
+  <div class="container heading reveal">
+    <div class="eyebrow">09 CAPABILITIES / ONE SYSTEM</div>
+    <h2 class="section-title display">{c.servicesTitle}</h2>
+    <p class="section-text">{c.servicesText}</p>
+  </div>
+
+  <div class="wrapper service-orbit reveal" aria-label={lang === "ar" ? "خدمات قيصر ستديو" : "CAESAR STUDIO services"}>
+    <div class="orbit-glow" aria-hidden="true"></div>
+    <div class="orbit-ring" aria-hidden="true"></div>
+    <div class="inner" style={`--quantity:${services.length}`}>
+      {services.map((service, index) => (
+        <div class="card-slot" style={`--index:${index};--color-card:${colors[index % colors.length]}`}>
+          <a class="service-card interactive" id={`service-${service.slug}`} href={`${prefix}/services/${service.slug}/`}>
+            <div class="card-top">
+              <span class="num mono">{String(index + 1).padStart(2, "0")}</span>
+              <i aria-hidden="true">{service.icon}</i>
+            </div>
+            <div class="card-copy">
+              <strong class="display">{lang === "ar" ? service.ar : service.en}</strong>
+              <span class="desc">{lang === "ar" ? service.arSummary : service.enSummary}</span>
+            </div>
+            <b class="card-arrow" aria-hidden="true">↗</b>
+          </a>
+        </div>
+      ))}
+    </div>
+    <div class="carousel-core" aria-hidden="true">
+      <strong class="display">09</strong><span class="mono">CAPABILITIES</span>
+    </div>
+    <p class="hint mono">{lang === "ar" ? "اسحب للدوران · اضغط للاستكشاف" : "DRAG TO ROTATE · CLICK TO EXPLORE"}</p>
+  </div>
+</section>
+
+<style>
+  .services{padding:140px 0 100px;overflow:hidden}.heading{text-align:center;display:grid;justify-items:center}.heading .section-text{margin-top:22px;max-width:680px}.wrapper{--w:190px;--h:260px;--translate-z:calc(var(--w) + var(--h));--rotate-x:-12deg;--perspective:1200px;width:100%;height:720px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;isolation:isolate;cursor:grab;touch-action:pan-y;user-select:none}.wrapper.dragging{cursor:grabbing}.inner{position:absolute;width:var(--w);height:var(--h);top:24%;left:calc(50% - var(--w)/2);z-index:3;transform-style:preserve-3d;transform:perspective(var(--perspective)) rotateX(var(--rotate-x)) rotateY(0deg);will-change:transform}.card-slot{position:absolute;inset:0;transform:rotateY(calc((360deg/var(--quantity))*var(--index))) translateZ(var(--translate-z));transform-style:preserve-3d;backface-visibility:hidden}.service-card{width:100%;height:100%;padding:18px;display:flex;flex-direction:column;text-align:start;text-decoration:none;border-radius:28px;backface-visibility:hidden;overflow:visible}.service-card::before{background:radial-gradient(120px circle at var(--mx) var(--my),#fff 0 2%,rgba(var(--color-card),1) 18%,#ff168d 52%,transparent 78%)}.card-top{display:flex;align-items:center;justify-content:space-between}.num{font-size:10px;color:var(--muted);letter-spacing:.14em}.card-top i,.card-arrow{font-style:normal;display:grid;place-items:center;color:#fff;background:#101010;border:1px solid #fff3;box-shadow:inset 0 1px 1px #fff5,inset 0 8px 11px #fff1,0 7px 15px #0008}.card-top i{width:45px;height:45px;border-radius:15px;font:700 19px "Space Grotesk";transition:transform .35s,box-shadow .35s}.card-copy{margin:auto 0 16px;display:grid;gap:13px}.card-copy strong{font-size:22px;line-height:1.25}.desc{color:var(--muted);font-size:11px;line-height:1.7}.card-arrow{width:35px;height:35px;border-radius:50%;align-self:flex-end;font-size:14px;transition:transform .35s}.service-card:hover .card-top i{transform:rotate(9deg) scale(1.08);box-shadow:inset 0 -13px 18px rgba(var(--color-card),.28),0 0 18px rgba(var(--color-card),.72)}.service-card:hover .card-arrow{transform:translate(3px,-3px) rotate(9deg)}.orbit-glow{position:absolute;z-index:0;width:440px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(214,82,43,.24),rgba(214,82,43,.05) 42%,transparent 70%);filter:blur(16px);animation:breathe 4s ease-in-out infinite}.orbit-ring{position:absolute;z-index:1;width:350px;aspect-ratio:1;border:1px solid rgba(255,136,62,.25);border-radius:50%;box-shadow:0 0 50px rgba(214,82,43,.12),inset 0 0 50px rgba(214,82,43,.08);transform:rotateX(68deg)}.carousel-core{position:absolute;z-index:2;top:48%;left:50%;transform:translate(-50%,-50%);width:116px;aspect-ratio:1;border-radius:50%;display:grid;place-content:center;text-align:center;background:radial-gradient(circle at 40% 30%,#392015,#100c0c 62%);border:1px solid rgba(255,151,85,.45);box-shadow:inset 0 0 24px rgba(255,105,25,.18),0 0 34px rgba(255,105,25,.22)}.carousel-core strong{font-size:38px;line-height:1;color:#fff}.carousel-core span{margin-top:7px;font-size:7px;letter-spacing:.16em;color:var(--accent-soft)}.hint{position:absolute;bottom:36px;margin:0;color:var(--muted);font-size:8px;letter-spacing:.16em}.hint::before{content:"";width:54px;height:1px;background:var(--accent);display:inline-block;margin-inline-end:12px;vertical-align:middle}
+  @keyframes breathe{50%{transform:scale(1.14);opacity:.72}}
+  @media(max-width:1024px){.wrapper{--w:160px;--h:225px;--translate-z:385px;height:650px}.heading .section-text{max-width:600px}.orbit-ring{width:300px}.carousel-core{width:102px}}
+  @media(max-width:720px){.services{padding:100px 0 65px}.heading{text-align:start;justify-items:start}.heading .section-text{margin-top:17px}.wrapper{--w:118px;--h:178px;--translate-z:220px;--rotate-x:-9deg;height:500px;width:calc(100% + 36px);margin-inline-start:-18px}.service-card{padding:12px;border-radius:21px}.card-top i{width:34px;height:34px;border-radius:11px;font-size:15px}.card-copy{gap:8px;margin-bottom:8px}.card-copy strong{font-size:14px}.desc{display:none}.card-arrow{width:28px;height:28px;font-size:11px}.orbit-ring{width:210px}.orbit-glow{width:300px}.carousel-core{width:76px}.carousel-core strong{font-size:27px}.carousel-core span{font-size:5px}.hint{bottom:20px}.inner{animation-duration:16s}}
+  @media(prefers-reduced-motion:reduce){.orbit-glow{animation:none}}
+</style>

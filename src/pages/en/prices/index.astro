@@ -1,0 +1,6 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"; import DirectoryLanding from "@/components/DirectoryLanding.astro"; import {services} from "@/data/services"; import {getSeoCopy} from "@/data/seo-content"; import {itemListSchema,webPageSchema} from "@/lib/seo-schema";
+const path="/en/prices/"; const title="Digital service pricing guides | CAESAR STUDIO"; const description="Scope and cost drivers for website design, identity, SaaS, campaigns, video, and SEO growth.";
+const items=services.map((service)=>({name:`${service.en} pricing`,href:`/en/prices/${service.slug}/`,note:getSeoCopy(service.slug).enFactors.join(" · ")})); const schema=[webPageSchema(path,title,description,"en"),itemListSchema(items,"Pricing guides")];
+---
+<BaseLayout title={title} description={description} lang="en" path={path} alternatePath="/prices/" schema={schema}><DirectoryLanding lang="en" type="prices" items={items}/></BaseLayout>

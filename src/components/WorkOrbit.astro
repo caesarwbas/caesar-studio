@@ -1,0 +1,45 @@
+---
+interface WorkItem { name: string; src: string }
+interface Props { items: WorkItem[]; lang?: "ar" | "en"; group?: number }
+const { items, lang = "ar", group = 0 } = Astro.props;
+const copy = lang === "ar"
+  ? { label: "مشروع مختار", reveal: "مرّر لكشف الهوية" }
+  : { label: "Selected work", reveal: "Hover to reveal" };
+const triangles = Array.from({ length: 21 });
+---
+
+<section class="work-orbit" aria-label={`${copy.label} ${group + 1}`}>
+  <div class="work-orbit__loader" aria-hidden="true">
+    <svg viewBox="0 0 1000 1000" class="work-orbit__triangles">
+      {triangles.map((_, index) => (
+        <polygon
+          points="500,200 759,650 241,650"
+          style={`--i:${index}`}
+          class="work-orbit__poly"
+        />
+      ))}
+    </svg>
+  </div>
+
+  {items.map((item, index) => (
+    <article class="orbit-card-wrap" style={`--angle:${index * 90}deg`} tabindex="0">
+      <div class="orbit-card-shell">
+        <div class="orbit-card">
+          <div class="orbit-card__face orbit-card__front">
+            <div class="orbit-card__tab">{copy.label}</div>
+            <svg viewBox="0 0 16 16" class="orbit-card__symbol" aria-hidden="true">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" fill-rule="evenodd" />
+            </svg>
+            <strong>{item.name}</strong>
+            <small>{copy.reveal}</small>
+          </div>
+          <div class="orbit-card__face orbit-card__back">
+            <img src={item.src} alt={`${item.name} logo`} loading="lazy" decoding="async" />
+            <strong>{item.name}</strong>
+          </div>
+        </div>
+      </div>
+    </article>
+  ))}
+</section>

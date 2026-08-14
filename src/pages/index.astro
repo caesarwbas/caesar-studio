@@ -1,0 +1,19 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import ClientMarquee from "@/components/ClientMarquee.astro";
+import ServicesGrid from "@/components/ServicesGrid.astro";
+import SeoArchitecture from "@/components/SeoArchitecture.astro";
+import ContactCta from "@/components/ContactCta.astro";
+import PopularSearches from "@/components/PopularSearches.astro";
+import { services } from "@/data/services";
+import { itemListSchema, webPageSchema } from "@/lib/seo-schema";
+
+const title = "CAESAR STUDIO | تصميم مواقع وهوية وتسويق رقمي";
+const description = "شركة تسويق وتصميم رقمي تقدم تصميم المواقع، تطبيقات الويب، SaaS، الحملات، السوشال ميديا، الهوية، المونتاج ونمو SEO.";
+const serviceItems = services.map((service) => ({ name: service.ar, href: `/services/${service.slug}/` }));
+const schema = [webPageSchema("/", title, description, "ar"), itemListSchema(serviceItems, "خدمات CAESAR STUDIO")];
+---
+<BaseLayout title={title} description={description} lang="ar" path="/" alternatePath="/en/" schema={schema}>
+  <Hero lang="ar" prefix="" /><ClientMarquee lang="ar" /><ServicesGrid lang="ar" prefix="" /><PopularSearches lang="ar"/><SeoArchitecture lang="ar" /><ContactCta lang="ar" />
+</BaseLayout>

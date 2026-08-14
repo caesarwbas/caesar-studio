@@ -1,0 +1,29 @@
+---
+const { lang = "ar" } = Astro.props;
+const ar = lang === "ar";
+const stars = [5, 4, 3, 2, 1];
+---
+<section class="rating-card" id={`rating-${lang}`} data-rating-widget data-lang={lang} aria-labelledby={`rating-title-${lang}`}>
+  <div class="rating-copy">
+    <span class="eyebrow">CLIENT EXPERIENCE / 05</span>
+    <h3 id={`rating-title-${lang}`}>{ar ? "كيف كانت تجربتك معنا؟" : "How was your experience?"}</h3>
+    <p>{ar ? "تقييمك يصل مباشرة إلى فريق CAESAR STUDIO ويساعدنا على تطوير خدماتنا." : "Your rating goes directly to CAESAR STUDIO and helps us improve."}</p>
+  </div>
+  <form class="rating-form" data-rating-form>
+    <fieldset>
+      <legend>{ar ? "اختر عدد النجوم" : "Choose a rating"}</legend>
+      <div class="radio" dir="ltr">
+        {stars.map((value) => <><input id={`star-${lang}-${value}`} type="radio" name="rating" value={value} required/><label for={`star-${lang}-${value}`} title={`${value}/5`} aria-label={`${value} ${ar ? "نجوم" : "stars"}`}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.7 2.8 5.7 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3-4.6-4.4 6.3-.9L12 2.7Z"/></svg></label></>)}
+      </div>
+    </fieldset>
+    <div class="fields">
+      <label><span>{ar ? "الاسم" : "Name"}</span><input name="name" maxlength="70" autocomplete="name" placeholder={ar ? "اسمك (اختياري)" : "Your name (optional)"}/></label>
+      <label><span>{ar ? "ملاحظتك" : "Feedback"}</span><textarea name="comment" maxlength="700" rows="3" required placeholder={ar ? "اكتب تجربتك مع خدماتنا" : "Tell us about your experience"}></textarea></label>
+    </div>
+    <button class="button primary interactive" type="submit"><span>{ar ? "إرسال التقييم" : "Send rating"}</span><span class="arrow">↗</span></button>
+    <p class="rating-status" data-rating-status aria-live="polite"></p>
+  </form>
+</section>
+<style>
+  .rating-card{width:min(920px,calc(100vw - 32px));margin:58px auto 0;padding:24px;display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;text-align:start;border:1px solid var(--line);border-radius:28px;background:var(--glass);backdrop-filter:blur(22px);box-shadow:var(--shadow)}.rating-copy h3{margin:12px 0 10px;font-size:clamp(24px,3vw,38px)}.rating-copy p{margin:0;color:var(--muted);font-size:13px;line-height:1.8}.rating-form{display:grid;gap:16px}fieldset{margin:0;padding:0;border:0}legend{margin-bottom:9px;color:var(--muted);font-size:11px}.radio{display:flex;justify-content:flex-start;flex-direction:row-reverse;gap:10px}.radio>input{position:absolute;appearance:none;opacity:0}.radio>label{cursor:pointer;position:relative;display:inline-grid;place-items:center;transition:transform .3s ease}.radio svg{width:34px;height:34px;fill:#666;stroke:#888;stroke-width:.6;transition:fill .3s,filter .3s}.radio label::before,.radio label::after{content:"";position:absolute;width:6px;height:6px;background:#ff9e0b;border-radius:50%;opacity:0;transform:scale(0);transition:.4s}.radio label::before{top:-10px}.radio label::after{bottom:-10px}.radio label:hover{transform:scale(1.16)}.radio label:hover::before,.radio label:hover::after{opacity:1;transform:scale(1.4)}.radio label:hover svg,.radio label:hover~label svg,.radio input:checked~label svg{fill:#ff9e0b;stroke:#ffc15c;filter:drop-shadow(0 0 13px rgba(255,158,11,.9));animation:rating-shimmer 1s ease infinite alternate}.fields{display:grid;gap:10px}.fields label{display:grid;gap:6px}.fields span{color:var(--muted);font-size:10px}.fields input,.fields textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--text);background:rgba(255,255,255,.045);font:inherit;resize:vertical;outline:none}.fields :is(input,textarea):focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(214,82,43,.13)}.rating-form .button{justify-self:start}.rating-status{min-height:20px;margin:0;color:#ffb36f;font-size:12px}@keyframes rating-shimmer{to{filter:drop-shadow(0 0 21px rgba(255,158,11,1))}}@media(max-width:720px){.rating-card{grid-template-columns:1fr;padding:20px;gap:22px}.radio{justify-content:center}.rating-form .button{width:100%}}
+</style>

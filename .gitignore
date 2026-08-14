@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.astro-runtime/
+.superdesign/
+*.log
+.env
+.env.*
+!.env.example
+

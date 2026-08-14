@@ -1,0 +1,10 @@
+---
+import Breadcrumbs from "@/components/Breadcrumbs.astro"; import SeoLinkGrid from "@/components/SeoLinkGrid.astro";
+type DirectoryType = "services" | "locations" | "prices";
+const {lang="ar",type="services",items=[]}=Astro.props as {lang?:"ar"|"en";type?:DirectoryType;items?:{name:string;href:string;note:string}[]}; const ar=lang==="ar"; const prefix=ar?"":"/en";
+const labels={services:{ar:"دليل الخدمات",en:"Services directory",textAr:"خدمات مترابطة تجمع الاستراتيجية والهوية والتجربة والتقنية والنمو.",textEn:"Connected services spanning strategy, identity, experience, technology, and growth."},locations:{ar:"الأسواق التي نخدمها",en:"Markets we serve",textAr:"صفحات محلية أصلية تشرح كيف تتكيف الخدمة مع واقع كل سوق.",textEn:"Original local pages explaining how delivery adapts to each market."},prices:{ar:"أدلة التكلفة",en:"Pricing guides",textAr:"افهم نطاق العمل والعوامل التي تصنع التكلفة قبل مقارنة العروض.",textEn:"Understand scope and cost drivers before comparing proposals."}};
+const label=labels[type]; const title=ar?label.ar:label.en; const text=ar?label.textAr:label.textEn; const path=`${prefix}/${type}/`;
+---
+<Breadcrumbs items={[{name:ar?"الرئيسية":"Home",href:`${prefix}/`},{name:title,href:path}]}/>
+<section class="directory-hero container"><div class="eyebrow">PROGRAMMATIC DIRECTORY / {type.toUpperCase()}</div><h1 class="display">{title}</h1><p>{text}</p></section><SeoLinkGrid title={title} items={items}/>
+<style>.directory-hero{min-height:52vh;padding-top:120px;display:flex;flex-direction:column;justify-content:center}.directory-hero h1{margin:18px 0;font-size:clamp(54px,8vw,120px);line-height:.92}.directory-hero p{max-width:740px;color:var(--muted);font-size:19px;line-height:1.8}</style>

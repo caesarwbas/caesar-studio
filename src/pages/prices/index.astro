@@ -1,0 +1,6 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"; import DirectoryLanding from "@/components/DirectoryLanding.astro"; import {services} from "@/data/services"; import {getSeoCopy} from "@/data/seo-content"; import {itemListSchema,webPageSchema} from "@/lib/seo-schema";
+const path="/prices/"; const title="دليل أسعار خدمات التسويق والتصميم | CAESAR STUDIO"; const description="أدلة توضح نطاق العمل وعوامل تكلفة تصميم المواقع والهوية وSaaS والحملات والفيديو وSEO.";
+const items=services.map((service)=>({name:`تكلفة ${service.ar}`,href:`/prices/${service.slug}/`,note:getSeoCopy(service.slug).arFactors.join(" · ")})); const schema=[webPageSchema(path,title,description,"ar"),itemListSchema(items,"أدلة التكلفة")];
+---
+<BaseLayout title={title} description={description} lang="ar" path={path} alternatePath="/en/prices/" schema={schema}><DirectoryLanding lang="ar" type="prices" items={items}/></BaseLayout>

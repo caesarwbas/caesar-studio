@@ -1,0 +1,12 @@
+.scroll-progress { position: fixed; z-index: 150; top: 0; inset-inline-start: 0; width: 0; height: 3px; background: linear-gradient(90deg,var(--accent),#ffd0bc); box-shadow: 0 0 16px var(--accent); }
+.fireworks { position: fixed; z-index: 140; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; transition: opacity .15s; }
+.fireworks.visible { opacity: 1; }
+.neural { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: .76; mix-blend-mode: screen; }
+[data-theme="light"] .neural { opacity: .18; mix-blend-mode: multiply; }
+.neural-label { position:absolute; z-index:4; bottom:23px; inset-inline-end:4vw; color:var(--muted); font-size:8px; letter-spacing:.18em; display:flex; align-items:center; gap:10px; }
+.neural-label::before { content:""; width:32px; height:1px; background:var(--accent); }
+.lightning-canvas { position:absolute; z-index:8; top:0; left:0; overflow:visible; pointer-events:none; }
+@keyframes ring { to { transform: rotate(360deg); } }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes marquee-reverse { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@keyframes pulse { 50% { transform: scale(.72); opacity: .65; } }

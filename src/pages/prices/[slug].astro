@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"; import PricingLanding from "@/components/PricingLanding.astro";
+import { services } from "@/data/services"; import { getSeoCopy } from "@/data/seo-content";
+import { breadcrumbSchema, faqSchema, serviceSchema, webPageSchema } from "@/lib/seo-schema";
+export function getStaticPaths(){return services.map((service)=>({params:{slug:service.slug},props:{service}}))}
+const {service}=Astro.props; const copy=getSeoCopy(service.slug); const path=`/prices/${service.slug}/`;
+const title=`تكلفة ${service.ar}: العوامل والنطاق | CAESAR STUDIO`; const description=`دليل تكلفة ${service.ar}: ${copy.arFactors.join("، ")}، وما الذي يشمله العرض المخصص.`;
+const faq=[{q:`كم تبلغ تكلفة ${service.ar}؟`,a:"تحدد بعد فهم نطاق المشروع والتسليمات المطلوبة، ولا يوجد سعر موحد دقيق لكل الحالات."},{q:"ما عوامل التكلفة؟",a:copy.arFactors.join("، ")},{q:"هل العرض مفصل؟",a:"نعم، يوضح النطاق والمراحل والتسليمات والتكلفة."}];
+const crumbs=[{name:"الرئيسية",href:"/"},{name:"دليل الأسعار",href:path},{name:service.ar,href:path}];
+const schema=[webPageSchema(path,title,description,"ar"),serviceSchema(service,copy,path,"ar"),breadcrumbSchema(crumbs),faqSchema(faq)];
+---
+<BaseLayout title={title} description={description} lang="ar" path={path} alternatePath={`/en/prices/${service.slug}/`} schema={schema} dateModified="2026-08-13"><PricingLanding service={service} lang="ar"/></BaseLayout>

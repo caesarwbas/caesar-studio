@@ -1,0 +1,15 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ServiceLanding from "@/components/ServiceLanding.astro";
+import { services } from "@/data/services"; import type { Service } from "@/data/services";
+import { getSeoCopy } from "@/data/seo-content";
+import { breadcrumbSchema, faqSchema, itemListSchema, serviceSchema, webPageSchema } from "@/lib/seo-schema";
+export function getStaticPaths(){return services.map((service)=>({params:{slug:service.slug},props:{service}}))}
+const {service}=Astro.props; const copy=getSeoCopy(service.slug); const path=`/services/${service.slug}/`;
+const title=`${service.ar} للشركات | CAESAR STUDIO`; const description=`${copy.arIntro} استراتيجية وتنفيذ وقياس بالعربية والإنجليزية.`;
+const faq=[{q:`ماذا تشمل خدمة ${service.ar}؟`,a:`تشمل ${copy.arDeliverables.join("، ")}، ويُحدد نطاق العمل النهائي بعد جلسة الاكتشاف.`},{q:`كيف تُحسب تكلفة ${service.ar}؟`,a:`تعتمد على ${copy.arFactors.join("، ")}. نرسل عرضًا واضحًا بعد فهم النطاق.`},{q:"هل يمكن تنفيذ الخدمة عن بُعد؟",a:"نعم، نعمل بالعربية والإنجليزية وتدار المراجعات والتسليم رقميًا."}];
+const crumbs=[{name:"الرئيسية",href:"/"},{name:"الخدمات",href:"/#services"},{name:service.ar,href:path}];
+const related=copy.related.map((slug)=>services.find((item)=>item.slug===slug)).filter((item): item is Service=>Boolean(item)).map((item)=>({name:item.ar,href:`/services/${item.slug}/`}));
+const schema=[webPageSchema(path,title,description,"ar"),serviceSchema(service,copy,path,"ar"),breadcrumbSchema(crumbs),faqSchema(faq),itemListSchema(related,"خدمات مرتبطة")];
+---
+<BaseLayout title={title} description={description} lang="ar" path={path} alternatePath={`/en/services/${service.slug}/`} schema={schema} dateModified="2026-08-13"><ServiceLanding service={service} lang="ar"/></BaseLayout>

@@ -1,0 +1,29 @@
+---
+import { copy } from "@/data/copy";
+const { lang = "ar", prefix = "" } = Astro.props;
+const c = copy[lang as "ar" | "en"];
+---
+<section class="hero" id="home" data-section="home">
+  <div class="starfield-container" id="starfield-container" aria-hidden="true"></div>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="container hero-stack reveal">
+    <h1 class="display">{c.heroTitle}</h1>
+    <div class="orb-stage" aria-hidden="true"></div>
+    <div class="hero-bottom">
+      <p>{c.heroLead}</p>
+      <div class="hero-actions">
+        <a class="button primary interactive magnetic" id="hero-contact" href={`${prefix}/#contact`} data-fireworks><span>{c.primary}</span><span class="arrow">↗</span></a>
+        <a class="button interactive magnetic" id="hero-work" href={`${prefix}/work/`}><span>{c.secondary}</span><span class="arrow">←</span></a>
+      </div>
+      <div class="proof">
+        <span><strong>09</strong>{lang === "ar" ? "تخصصات مترابطة" : "connected capabilities"}</span><i></i>
+        <span><strong>AR / EN</strong>{lang === "ar" ? "تجربة ثنائية اللغة" : "bilingual experience"}</span><i></i>
+        <span><strong>SEO</strong>{lang === "ar" ? "بنية قابلة للنمو" : "scalable architecture"}</span>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .hero{min-height:112svh;position:relative;overflow:hidden;padding:112px 0 46px;background:transparent}.starfield-container{position:absolute;z-index:0;inset:0;overflow:hidden;background:transparent;pointer-events:none;transition:opacity .5s}.starfield-container :global(canvas){position:absolute;inset:0;width:100%!important;height:100%!important;display:block}.ambient{position:absolute;z-index:1;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 0 25%,rgba(23,8,16,.08) 48%,rgba(10,7,10,.5) 100%),linear-gradient(180deg,rgba(111,31,31,.08),transparent 26%,transparent 72%,rgba(10,7,10,.55))}.hero-stack{position:relative;z-index:3;text-align:center;display:grid;justify-items:center}.hero h1{width:100%;margin:0 auto;color:#fff5ef;font-size:clamp(32px,3.55vw,52px);line-height:1.05;letter-spacing:-.04em;white-space:nowrap}.orb-stage{height:clamp(330px,45vh,460px);width:100%}.hero-bottom{display:grid;justify-items:center}.hero p{max-width:880px;margin:0;color:#d2bec2;font-size:clamp(15px,1.18vw,19px);line-height:1.85;text-wrap:balance}.hero-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:11px;margin-top:22px}.hero-actions .button{min-width:190px}.proof{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:24px;color:#aa9198;font-size:10px}.proof span{display:grid;gap:2px}.proof strong{color:#fff4ed;font:700 18px "Space Grotesk"}.proof>i{width:52px;height:1px;background:rgba(255,255,255,.2)}:global([data-theme="light"]) .starfield-container{opacity:1}:global([data-theme="light"]) .ambient{background:radial-gradient(circle at 50% 48%,transparent 0 24%,rgba(62,20,27,.05) 52%,rgba(20,8,13,.38))}
+  @media(max-width:720px){.hero{min-height:112svh;padding:88px 0 34px}.hero h1{font-size:clamp(35px,10.6vw,55px);line-height:1.12;white-space:normal;text-wrap:balance}.orb-stage{height:clamp(280px,40vh,360px)}.hero p{font-size:14px;line-height:1.75}.hero-actions{width:100%;margin-top:18px}.hero-actions .button{width:100%}.proof{width:100%;gap:10px;margin-top:18px;font-size:7px}.proof>i{width:16px}.proof strong{font-size:14px}}
+</style>

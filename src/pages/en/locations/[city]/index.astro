@@ -1,0 +1,10 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"; import Breadcrumbs from "@/components/Breadcrumbs.astro"; import SeoLinkGrid from "@/components/SeoLinkGrid.astro";
+import {locations} from "@/data/locations"; import {services} from "@/data/services"; import {breadcrumbSchema,itemListSchema,webPageSchema} from "@/lib/seo-schema";
+export function getStaticPaths(){return locations.map((location)=>({params:{city:location.slug},props:{location}}))}
+const {location}=Astro.props; const path=`/en/locations/${location.slug}/`; const title=`Digital marketing and design in ${location.en} | CAESAR STUDIO`; const description=`${location.enMarket} Explore website, product, identity, marketing, and growth services.`;
+const items=services.map((service)=>({name:`${service.en} in ${location.en}`,href:`/en/locations/${location.slug}/${service.slug}/`,note:service.enSummary})); const crumbs=[{name:"Home",href:"/en/"},{name:"Markets",href:"/en/locations/"},{name:location.en,href:path}];
+const schema=[webPageSchema(path,title,description,"en"),breadcrumbSchema(crumbs),itemListSchema(items,`Services in ${location.en}`)];
+---
+<BaseLayout title={title} description={description} lang="en" path={path} alternatePath={`/locations/${location.slug}/`} schema={schema}><Breadcrumbs items={crumbs}/><section class="city container"><div class="eyebrow">MARKET / {location.countryCode}</div><h1 class="display">Build presence<br/>in <span>{location.en}</span></h1><p>{location.enMarket}</p></section><SeoLinkGrid title={`Services in ${location.en}`} items={items}/></BaseLayout>
+<style>.city{min-height:66vh;padding-top:120px;display:flex;flex-direction:column;justify-content:center}.city h1{margin:18px 0;font-size:clamp(58px,9vw,136px);line-height:.9}.city h1 span{color:var(--accent)}.city p{max-width:760px;color:var(--muted);font-size:19px;line-height:1.9}</style>

@@ -1,0 +1,469 @@
+.work-showcase {
+  position: relative;
+  min-height: 100vh;
+  padding: 150px 0 110px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #272727, #454545, #181818);
+  background-size: 300% 300%;
+  animation: work-gradient 12s ease infinite;
+}
+
+.work-showcase__eyebrow {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* ===== الزر الرئيسي ===== */
+.work-title-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-height: 148px;
+  margin: 18px auto 0;
+  overflow: visible;
+}
+
+.work-title-button {
+  position: relative;
+  width: 520px;
+  height: 82px;
+  background: transparent;
+  z-index: 2;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.work-title-button:hover {
+  animation: title-wobble 0.4s ease-in-out infinite alternate;
+}
+
+.work-title-button:active {
+  transform: scale(0.92) translateY(6px);
+}
+
+.work-title-bg {
+  position: absolute;
+  inset: 0;
+  background: #ff8c00;
+  border: 3px solid #111;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 4px 4px #ff007f, 8px 8px #00d4ff, 12px 12px #111;
+  overflow: hidden;
+  transition: box-shadow 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.work-title-button:active .work-title-bg {
+  box-shadow: 2px 2px #ff007f, 4px 4px #00d4ff, 6px 6px #111;
+}
+
+.work-title-shine {
+  position: absolute;
+  top: 8px;
+  left: 15px;
+  width: 45px;
+  height: 12px;
+  background: #fff;
+  border: 2px solid #111;
+  border-radius: inherit;
+  transform: rotate(-4deg);
+  opacity: 0.9;
+  transition: 0.3s;
+}
+
+.work-title-button:hover .work-title-shine {
+  transform: rotate(4deg) translateX(10px);
+  width: 30px;
+}
+
+.work-title-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  z-index: 3;
+}
+
+.work-title-text {
+  display: block;
+  color: #111;
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-align: center;
+  text-shadow: -1px -1px #fff, 1px -1px #fff, -1px 1px #fff, 1px 1px #fff, 3px 3px #ff007f;
+}
+
+/* حروف متحركة */
+.work-title-char {
+  display: inline-block;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+.work-title-space {
+  display: inline-block;
+  width: 8px;
+}
+
+.work-title-button:hover .work-title-char {
+  animation: title-char-bounce 1.5s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 0.05s);
+  color: #fff;
+  text-shadow: -1px -1px #111, 1px -1px #111, -1px 1px #111, 1px 1px #111, 3px 3px #111;
+}
+
+.work-title-content i {
+  font-style: normal;
+  font-size: 24px;
+  color: #fff;
+  text-shadow: 2px 2px #111;
+  transition: transform 0.2s;
+}
+
+.work-title-button:hover .work-title-content i {
+  animation: title-zap 0.3s infinite alternate;
+}
+
+.work-title-outline {
+  position: absolute;
+  bottom: 12px;
+  left: 15%;
+  right: 15%;
+  height: 5px;
+  background: #00d4ff;
+  border: 2px solid #111;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.work-title-button:hover .work-title-outline {
+  animation: title-scribble 0.2s steps(2) infinite alternate;
+}
+
+.work-title-glow {
+  position: absolute;
+  bottom: -15px;
+  left: 10%;
+  width: 80%;
+  height: 20px;
+  box-shadow:
+    -40px 10px 0 -4px #ff007f,
+    -20px 15px 0 -2px #ff8c00,
+    0 10px 0 -4px #00d4ff,
+    20px 18px 0 -3px #ff5100,
+    40px 8px 0 -5px #ff8c00;
+  opacity: 0;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+.work-title-button:hover .work-title-glow {
+  opacity: 1;
+  animation: title-flame 0.3s steps(2) infinite alternate;
+}
+
+/* موجات الزر */
+.work-title-wave {
+  position: absolute;
+  inset: -20px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.work-title-wave::before,
+.work-title-wave::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 18px;
+  background: #111;
+  border-radius: 5px;
+  opacity: 0;
+}
+
+.work-title-wave::before {
+  top: -10px;
+  left: 20%;
+  transform: rotate(-30deg);
+}
+
+.work-title-wave::after {
+  top: -10px;
+  right: 20%;
+  transform: rotate(30deg);
+}
+
+.work-title-button:hover .work-title-wave::before {
+  animation: title-pop-left 0.5s ease-out infinite;
+}
+
+.work-title-button:hover .work-title-wave::after {
+  animation: title-pop-right 0.5s ease-out infinite 0.15s;
+}
+
+/* ===== المدارات والبطاقات ===== */
+.work-orbits {
+  display: grid;
+  gap: 80px;
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.work-orbit {
+  position: relative;
+  width: 100%;
+  height: 750px;
+  isolation: isolate;
+}
+
+.work-orbit__loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 300px;
+  height: 300px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.work-orbit__triangles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.work-orbit__poly {
+  fill: none;
+  stroke: #ff8c00;
+  stroke-width: 16;
+  transform-origin: center;
+  animation: orbit-triangle 10s linear infinite;
+  animation-delay: calc(var(--i) * -0.5s);
+  filter: drop-shadow(0 0 6px rgb(255 140 0 / 0.8));
+}
+
+.orbit-card-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 240px;
+  height: 294px;
+  transform: translate(-50%, -50%) rotate(var(--angle)) translateX(340px) rotate(calc(-1 * var(--angle)));
+  z-index: 2;
+  outline: 0;
+}
+
+.orbit-card-shell {
+  width: 100%;
+  height: 100%;
+  color: #ff8c00;
+  perspective: 800px;
+}
+
+.orbit-card {
+  width: 100%;
+  height: 100%;
+  background: #111;
+  border-radius: 2rem;
+  position: relative;
+  transition: transform 1500ms;
+  transform-style: preserve-3d;
+}
+
+.orbit-card-wrap:hover .orbit-card,
+.orbit-card-wrap:focus .orbit-card {
+  cursor: pointer;
+  transform: rotateX(180deg) rotateZ(-180deg);
+}
+
+.orbit-card__face {
+  position: absolute;
+  inset: 0;
+  border-radius: 2rem;
+  box-shadow: 0 0 10px 5px rgb(255 140 0 / 0.7);
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 32px 22px;
+  text-align: center;
+  background: #111;
+}
+
+.orbit-card__back {
+  transform: rotateX(180deg) rotateZ(-180deg);
+}
+
+.orbit-card__tab {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #111;
+  border-top: 0;
+  border-radius: 0 0 1rem 1rem;
+  box-shadow: 0 0 10px 5px rgb(255 140 0 / 0.7);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.orbit-card__symbol {
+  width: 100px;
+  height: 100px;
+  fill: currentColor;
+}
+
+.orbit-card strong {
+  font-size: 22px;
+  line-height: 1.25;
+  color: #ff8c00;
+}
+
+.orbit-card small {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ff8c00;
+}
+
+.orbit-card__back img {
+  width: 82%;
+  height: 150px;
+  object-fit: contain;
+  filter: grayscale(1) brightness(1.45);
+  transition: 0.3s;
+}
+
+.orbit-card-wrap:hover .orbit-card__back img,
+.orbit-card-wrap:focus .orbit-card__back img {
+  filter: none;
+  transform: scale(1.04);
+}
+
+/* ===== الحركات ===== */
+@keyframes work-gradient {
+  0% { background-position: 0 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+@keyframes orbit-triangle {
+  0% { transform: scale(0) rotate(0); opacity: 1; }
+  100% { transform: scale(3) rotate(45deg); opacity: 0; }
+}
+
+@keyframes title-wobble {
+  from { transform: rotate(-2deg) scale(1.02); }
+  to { transform: rotate(2deg) scale(1.02); }
+}
+
+@keyframes title-char-bounce {
+  from { transform: translateY(0) rotate(-3deg); }
+  to { transform: translateY(-4px) rotate(4deg); }
+}
+
+@keyframes title-zap {
+  from { transform: scale(1) rotate(-10deg); color: #00d4ff; }
+  to { transform: scale(1.2) rotate(10deg); color: #ff007f; }
+}
+
+@keyframes title-scribble {
+  0% { transform: rotate(-1deg) translateY(0); background: #00d4ff; }
+  100% { transform: rotate(1deg) translateY(2px); background: #ff007f; }
+}
+
+@keyframes title-pop-left {
+  0% { transform: rotate(-30deg) translateY(10px); opacity: 1; }
+  100% { transform: rotate(-30deg) translateY(-20px) scale(0.5); opacity: 0; }
+}
+
+@keyframes title-pop-right {
+  0% { transform: rotate(30deg) translateY(10px); opacity: 1; }
+  100% { transform: rotate(30deg) translateY(-20px) scale(0.5); opacity: 0; }
+}
+
+@keyframes title-flame {
+  0% {
+    box-shadow:
+      -40px 10px 0 -4px #ff007f,
+      -20px 15px 0 -2px #ff8c00,
+      0 10px 0 -4px #00d4ff,
+      20px 18px 0 -3px #ff5100,
+      40px 8px 0 -5px #ff8c00;
+    transform: translateY(0);
+  }
+  100% {
+    box-shadow:
+      -35px 15px 0 -3px #ff8c00,
+      -25px 8px 0 -5px #ff007f,
+      5px 15px 0 -2px #ff5100,
+      15px 10px 0 -4px #00d4ff,
+      35px 15px 0 -3px #ff007f;
+    transform: translateY(4px);
+  }
+}
+
+/* ===== التجاوب ===== */
+@media (max-width: 760px) {
+  .work-orbit {
+    height: auto;
+    min-height: 700px;
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(2, 240px);
+    gap: 12px;
+  }
+  .work-orbit__loader {
+    width: 270px;
+    height: 270px;
+    opacity: 0.65;
+  }
+  .orbit-card-wrap {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none !important;
+    margin: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .work-title-button {
+    width: min(520px, 88vw);
+  }
+  .work-title-text {
+    font-size: 22px;
+  }
+  .work-orbit {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 155px 0 20px;
+  }
+  .work-orbit__loader {
+    top: 0;
+    translate: -50% 0;
+    width: 250px;
+    height: 250px;
+  }
+  .orbit-card-wrap {
+    margin: 15px auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-orbit__poly {
+    animation: none;
+    opacity: 0.35;
+  }
+  .orbit-card {
+    transition: none;
+  }
+}

@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"; import PricingLanding from "@/components/PricingLanding.astro";
+import { services } from "@/data/services"; import { getSeoCopy } from "@/data/seo-content";
+import { breadcrumbSchema, faqSchema, serviceSchema, webPageSchema } from "@/lib/seo-schema";
+export function getStaticPaths(){return services.map((service)=>({params:{slug:service.slug},props:{service}}))}
+const {service}=Astro.props; const copy=getSeoCopy(service.slug); const path=`/en/prices/${service.slug}/`;
+const title=`${service.en} pricing and cost factors | CAESAR STUDIO`; const description=`A practical ${service.en} pricing guide covering ${copy.enFactors.join(", ")} and what a tailored proposal includes.`;
+const faq=[{q:`How much does ${service.en} cost?`,a:"Cost is defined after understanding scope and deliverables; one universal figure would be misleading."},{q:"What affects cost?",a:copy.enFactors.join(", ")},{q:"Is the proposal itemised?",a:"Yes. It outlines scope, phases, deliverables, and cost."}];
+const crumbs=[{name:"Home",href:"/en/"},{name:"Pricing guides",href:path},{name:service.en,href:path}];
+const schema=[webPageSchema(path,title,description,"en"),serviceSchema(service,copy,path,"en"),breadcrumbSchema(crumbs),faqSchema(faq)];
+---
+<BaseLayout title={title} description={description} lang="en" path={path} alternatePath={`/prices/${service.slug}/`} schema={schema} dateModified="2026-08-13"><PricingLanding service={service} lang="en"/></BaseLayout>

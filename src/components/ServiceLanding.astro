@@ -1,0 +1,36 @@
+---
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import FaqList from "@/components/FaqList.astro";
+import ContactCta from "@/components/ContactCta.astro";
+import SeoLinkGrid from "@/components/SeoLinkGrid.astro";
+import { services } from "@/data/services";
+import type { Service } from "@/data/services";
+import { locations } from "@/data/locations";
+import { getSeoCopy } from "@/data/seo-content";
+const { service, lang = "ar" } = Astro.props;
+const ar = lang === "ar"; const prefix = ar ? "" : "/en"; const copy = getSeoCopy(service.slug);
+const name = ar ? service.ar : service.en; const intro = ar ? copy.arIntro : copy.enIntro;
+const deliverables = ar ? copy.arDeliverables : copy.enDeliverables;
+const outcomes = ar ? copy.arOutcomes : copy.enOutcomes; const factors = ar ? copy.arFactors : copy.enFactors;
+const path = `${prefix}/services/${service.slug}/`;
+const faq = ar ? [
+  {q:`ماذا تشمل خدمة ${name}؟`,a:`تشمل ${deliverables.join("، ")}، ويُحدد نطاق العمل النهائي بعد جلسة الاكتشاف.`},
+  {q:`كيف تُحسب تكلفة ${name}؟`,a:`تعتمد على ${factors.join("، ")}. نرسل عرضًا واضحًا بعد فهم النطاق ولا ننشر سعرًا وهميًا موحدًا.`},
+  {q:"هل يمكن تنفيذ الخدمة عن بُعد؟",a:"نعم. نعمل بالعربية والإنجليزية مع فرق وأسواق متعددة، وتدار المراجعات والتسليم رقميًا."},
+] : [
+  {q:`What is included in ${name}?`,a:`The scope can include ${deliverables.join(", ")}. Final deliverables are agreed after discovery.`},
+  {q:`What determines the cost of ${name}?`,a:`Pricing depends on ${factors.join(", ")}. We provide a scoped proposal rather than a misleading universal price.`},
+  {q:"Can the service be delivered remotely?",a:"Yes. We work in Arabic and English with teams across multiple markets and manage review and delivery digitally."},
+];
+const locationLinks = locations.map((location) => ({name:`${name} ${ar?"في":"in"} ${ar?location.ar:location.en}`,href:`${prefix}/locations/${location.slug}/${service.slug}/`,note:ar?location.arMarket:location.enMarket}));
+const relatedLinks = copy.related.map((slug) => services.find((item) => item.slug === slug)).filter((item): item is Service => Boolean(item)).map((item) => ({name:ar?item.ar:item.en,href:`${prefix}/services/${item.slug}/`,note:ar?item.arSummary:item.enSummary}));
+---
+<Breadcrumbs items={[{name:ar?"الرئيسية":"Home",href:`${prefix}/`},{name:ar?"الخدمات":"Services",href:`${prefix}/#services`},{name,href:path}]} />
+<section class="service-hero container"><div class="eyebrow">SERVICE / {service.slug.toUpperCase()}</div><h1 class="display">{name}</h1><p>{intro}</p><div class="actions"><a class="button primary interactive" href="#contact">{ar?"احصل على عرض مخصص":"Get a tailored proposal"}<span>↗</span></a><a class="button interactive" href={`${prefix}/prices/${service.slug}/`}>{ar?"دليل التكلفة":"Pricing guide"}</a></div></section>
+<section class="evidence container"><article><small>01</small><h2>{ar?"ما الذي نستلمه؟":"What you receive"}</h2>{deliverables.map((item)=><p>— {item}</p>)}</article><article><small>02</small><h2>{ar?"النتائج المستهدفة":"Target outcomes"}</h2>{outcomes.map((item)=><p>— {item}</p>)}</article><article><small>03</small><h2>{ar?"عوامل التكلفة":"Cost factors"}</h2>{factors.map((item)=><p>— {item}</p>)}</article></section>
+<SeoLinkGrid title={ar?"الخدمة حسب السوق":"Service by market"} items={locationLinks}/>
+<SeoLinkGrid title={ar?"خدمات مرتبطة":"Related services"} items={relatedLinks}/>
+<FaqList items={faq}/><ContactCta lang={lang}/>
+<style>
+  .service-hero{min-height:72vh;padding-top:110px;display:flex;flex-direction:column;justify-content:center}.service-hero h1{max-width:1100px;margin:18px 0;font-size:clamp(58px,9vw,140px);line-height:.9}.service-hero p{max-width:760px;color:var(--muted);font-size:19px;line-height:1.9}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.evidence{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:30px 0 75px}.evidence article{min-height:270px;padding:26px;border:1px solid var(--line);border-radius:24px;background:var(--surface)}.evidence small{color:var(--accent)}.evidence h2{font-size:27px}.evidence p{color:var(--muted);line-height:1.7}@media(max-width:760px){.evidence{grid-template-columns:1fr}.service-hero h1{font-size:clamp(48px,15vw,78px)}}
+</style>

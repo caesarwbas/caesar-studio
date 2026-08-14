@@ -1,0 +1,6 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"; import DirectoryLanding from "@/components/DirectoryLanding.astro"; import {services} from "@/data/services"; import {itemListSchema,webPageSchema} from "@/lib/seo-schema";
+const path="/services/"; const title="دليل خدمات التسويق والتصميم الرقمي | CAESAR STUDIO"; const description="استكشف تصميم المواقع وتطبيقات الويب وSaaS والحملات والسوشال ميديا والهوية والفيديو ونمو SEO.";
+const items=services.map((service)=>({name:service.ar,href:`/services/${service.slug}/`,note:service.arSummary})); const schema=[webPageSchema(path,title,description,"ar"),itemListSchema(items,"دليل الخدمات")];
+---
+<BaseLayout title={title} description={description} lang="ar" path={path} alternatePath="/en/services/" schema={schema}><DirectoryLanding lang="ar" type="services" items={items}/></BaseLayout>

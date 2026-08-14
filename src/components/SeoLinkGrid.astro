@@ -1,0 +1,11 @@
+---
+type LinkItem = { name:string; href:string; note?:string };
+const { title, items = [] } = Astro.props as {title:string;items:LinkItem[]};
+---
+<section class="seo-links container" aria-labelledby={`links-${title.replace(/\s/g,"-")}`}>
+  <h2 id={`links-${title.replace(/\s/g,"-")}`}>{title}</h2>
+  <div>{items.map((item) => <a href={item.href}><span>{item.name}</span><b aria-hidden="true">↗</b><small>{item.note}</small></a>)}</div>
+</section>
+<style>
+  .seo-links{padding:70px 0}.seo-links h2{margin:0 0 22px;font-size:clamp(28px,4vw,52px)}.seo-links>div{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.seo-links a{min-height:120px;padding:20px;border:1px solid var(--line);border-radius:22px;background:var(--surface);color:var(--text);text-decoration:none;display:grid;grid-template-columns:1fr auto;gap:12px;transition:.3s}.seo-links a:hover{border-color:var(--accent);transform:translateY(-4px)}.seo-links span{font-weight:700}.seo-links b{color:var(--accent)}.seo-links small{grid-column:1/-1;color:var(--muted)}@media(max-width:760px){.seo-links>div{grid-template-columns:1fr}.seo-links{padding:48px 0}}
+</style>

@@ -1,0 +1,10 @@
+---
+import { copy } from "@/data/copy";
+import RatingWidget from "@/components/RatingWidget.astro";
+const { lang = "ar" } = Astro.props;
+const c = copy[lang as "ar" | "en"];
+---
+<section class="contact" id="contact" data-section="contact"><div class="orbit" aria-hidden="true"></div><div class="content reveal"><div class="eyebrow">YOUR NEXT MOVE / LET'S BUILD</div><h2 class="display">{c.ready}</h2><button class="button primary interactive" id="contact-fireworks" type="button" data-fireworks><span>{c.talk}</span><span class="arrow">↗</span></button><RatingWidget lang={lang}/></div></section>
+<style>
+  .contact{min-height:82vh;padding:110px 24px;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;background:var(--surface)}.orbit{position:absolute;width:min(720px,80vw);aspect-ratio:1;border:1px solid var(--line);border-radius:50%;animation:ring 30s linear infinite}.orbit::before,.orbit::after{content:"";position:absolute;inset:12%;border:1px solid var(--line);border-radius:50%}.orbit::after{inset:28%;border-color:rgba(214,82,43,.35)}.content{position:relative;z-index:2}h2{max-width:1100px;margin:18px auto 38px;font-size:clamp(58px,8.8vw,138px);line-height:.9;letter-spacing:-.065em}.button{margin:auto}@media(max-width:720px){.contact{min-height:75vh}h2{font-size:clamp(52px,15vw,82px)}}
+</style>

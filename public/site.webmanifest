@@ -1,0 +1,9 @@
+{
+  "name": "CAESAR STUDIO",
+  "short_name": "CAESAR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#d6522b",
+  "icons": [{ "src": "/assets/brand/caesar-mark.png", "sizes": "4000x4000", "type": "image/png" }]
+}

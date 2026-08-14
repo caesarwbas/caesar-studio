@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContactCta from "@/components/ContactCta.astro";
+import WorkTitleButton from "@/components/WorkTitleButton.astro";
+import WorkOrbit from "@/components/WorkOrbit.astro";
+import { clients } from "@/data/clients";
+import "@/styles/work-orbit.css";
+
+const groups = Array.from({ length: Math.ceil(clients.length / 4) }, (_, index) =>
+  clients.slice(index * 4, index * 4 + 4).map(([name, src]) => ({ name, src }))
+);
+---
+
+<BaseLayout title="CAESAR STUDIO Work | Brand and Digital Systems" description="Selected identities and brand systems created by CAESAR STUDIO." lang="en" path="/en/work/">
+  <section class="work-showcase container" data-section="work">
+    <div class="work-showcase__eyebrow eyebrow">SELECTED WORK / REAL IDENTITIES</div>
+    <WorkTitleButton lang="en" />
+    <div class="work-orbits">
+      {groups.map((items, group) => <WorkOrbit items={items} group={group} lang="en" />)}
+    </div>
+  </section>
+  <ContactCta lang="en" />
+</BaseLayout>

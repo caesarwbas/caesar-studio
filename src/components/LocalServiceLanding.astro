@@ -1,0 +1,22 @@
+---
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import FaqList from "@/components/FaqList.astro";
+import ContactCta from "@/components/ContactCta.astro";
+import SeoLinkGrid from "@/components/SeoLinkGrid.astro";
+import { services } from "@/data/services";
+import { locations } from "@/data/locations";
+import { getSeoCopy } from "@/data/seo-content";
+const { service, location, lang="ar" } = Astro.props; const ar=lang==="ar"; const prefix=ar?"":"/en";
+const copy=getSeoCopy(service.slug); const name=ar?service.ar:service.en; const city=ar?location.ar:location.en;
+const intro=ar?copy.arIntro:copy.enIntro; const market=ar?location.arMarket:location.enMarket;
+const path=`${prefix}/locations/${location.slug}/${service.slug}/`;
+const faq=ar?[{q:`هل تقدمون ${name} للشركات في ${city}؟`,a:`نعم، تُدار الخدمة رقميًا مع تكييف الرسائل والتجربة لواقع سوق ${city}.`},{q:`ما الذي يختلف في مشروع ${city}؟`,a:market},{q:"هل السعر ثابت؟",a:`لا. يتغير حسب ${copy.arFactors.join("، ")}. نُصدر عرضًا مخصصًا بعد جلسة الاكتشاف.`}]:[{q:`Do you provide ${name} for companies in ${city}?`,a:`Yes. Delivery is managed digitally while messaging and experience are adapted to the ${city} market.`},{q:`What changes for a ${city} project?`,a:market},{q:"Is pricing fixed?",a:`No. It depends on ${copy.enFactors.join(", ")}. We provide a tailored scope after discovery.`}];
+const nearby=locations.filter((item)=>item.slug!==location.slug).map((item)=>({name:`${name} ${ar?"في":"in"} ${ar?item.ar:item.en}`,href:`${prefix}/locations/${item.slug}/${service.slug}/`,note:ar?item.arMarket:item.enMarket}));
+const related=services.filter((item)=>item.slug!==service.slug).slice(0,5).map((item)=>({name:`${ar?item.ar:item.en} ${ar?"في":"in"} ${city}`,href:`${prefix}/locations/${location.slug}/${item.slug}/`,note:ar?item.arSummary:item.enSummary}));
+---
+<Breadcrumbs items={[{name:ar?"الرئيسية":"Home",href:`${prefix}/`},{name:city,href:`${prefix}/locations/${location.slug}/`},{name,href:path}]}/>
+<section class="local container"><div class="eyebrow">LOCAL SERVICE / {location.en.toUpperCase()}</div><h1 class="display">{name}<br/><span>{ar?"في":"in"} {city}</span></h1><p>{intro} {market}</p><div class="facts"><b>{location.countryCode}</b><span>{ar?"سوق مستهدف":"Target market"}</span><b>AR / EN</b><span>{ar?"تسليم ثنائي اللغة":"Bilingual delivery"}</span></div><a class="button primary interactive" href="#contact">{ar?"ناقش مشروعك":"Discuss your project"}<span>↗</span></a></section>
+<SeoLinkGrid title={ar?"خدمات أخرى في السوق":"More services in this market"} items={related}/>
+<SeoLinkGrid title={ar?"نفس الخدمة في أسواق أخرى":"Same service in other markets"} items={nearby}/>
+<FaqList items={faq}/><ContactCta lang={lang}/>
+<style>.local{min-height:78vh;padding-top:110px;display:flex;flex-direction:column;justify-content:center}.local h1{margin:18px 0;font-size:clamp(56px,9vw,136px);line-height:.9}.local h1 span{color:var(--accent)}.local p{max-width:830px;color:var(--muted);font-size:18px;line-height:1.9}.facts{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:10px 18px;margin:24px 0;align-items:center}.facts b{color:var(--accent);font-size:24px}.facts span{color:var(--muted);font-size:12px}.local>a{width:max-content}@media(max-width:700px){.facts{grid-template-columns:auto 1fr}.local h1{font-size:clamp(48px,15vw,78px)}}</style>
